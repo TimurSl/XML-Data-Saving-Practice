@@ -7,6 +7,20 @@ public class DataToSave
 	public string Address { get; set; }
 	
 	public List<string> Friends { get; set; } = new List<string>();
+
+	public Dictionary<string, SomeStructure> SomeData { get; set; } = new Dictionary<string, SomeStructure> ();
+}
+
+public struct SomeStructure
+{
+	public string Name { get; set; }
+	public int Age { get; set; }
+	
+	public SomeStructure(string name, int age)
+	{
+		Name = name;
+		Age = age;
+	}
 }
 
 class Program
@@ -43,9 +57,14 @@ class Program
 		data.Name = "John";
 		data.Age = 25;
 		data.Address = "Some address";
+		
 		data.Friends.Add("Friend 1");
 		data.Friends.Add("Friend 2");
 		data.Friends.Add("Friend 3");
+		
+		data.SomeData.Add("Key 1", new SomeStructure("Name 1", 1));
+		data.SomeData.Add("Key 2", new SomeStructure("Name 2", 2));
+		data.SomeData.Add("Key 3", new SomeStructure("Name 3", 3));
 		
 		XmlSerializer serializer = new XmlSerializer(typeof(DataToSave));
 		using (FileStream stream = new FileStream("data.xml", FileMode.Create))
